@@ -42,5 +42,6 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.5"
-  }
+  },
+  "proxy": "https://pokedex-api.3rgo.tech/api/pokemon"
 }
