@@ -1,6 +1,7 @@
 import './App.css';
 import Card from './components/card'
 import Header from './components/Header';
+import React from 'react';
 
 function App() {
 
@@ -16,8 +17,8 @@ function App() {
   console.log(pokemon)
   return (
     <div className="App">
-        <Header></Header>
-        <Card></Card>
+      <Header></Header>
+      <Card></Card>
     </div>
   );
 }
