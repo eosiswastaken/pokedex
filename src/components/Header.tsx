@@ -7,7 +7,7 @@ export default function Header(){
                 <span className="font-pokemon text-5xl text-yellow-500">POKE </span>
                 <img src="pokedex.svg" alt="" className="w-50"/>
                 <span className="font-pokemon text-5xl text-yellow-500"> DEX</span>
-                <div className="filters">
+                <div className="filters">   
                     <Filter></Filter>
                 </div>
             </div>
