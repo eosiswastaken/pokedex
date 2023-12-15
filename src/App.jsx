@@ -5,12 +5,12 @@ import { APIContextProvider } from './context/Context';
 
 function App() {
   return (
-    <div className="App">
-      <Header></Header>
-      <APIContextProvider>
+    <APIContextProvider>
+      <div className="App">
+        <Header></Header>
         <Card></Card>
-      </APIContextProvider>
-    </div>
+      </div>
+    </APIContextProvider>
   );
 }
 

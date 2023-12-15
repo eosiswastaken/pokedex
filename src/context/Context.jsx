@@ -4,23 +4,19 @@ import axios from "axios";
 const APIContext = createContext();
 
 export function APIContextProvider({ children }) {
-    const [pokemon, setPokemon] = useState([]);
+    const [pokemons, setPokemons] = useState([]);
+    async function fetchData() {
+        const { data: pokemon_data } = await axios.get(
+            `https://pokedex-api.3rgo.tech/api/pokemon`
+        );
+        console.log(pokemon_data);
+        setPokemons(pokemon_data['data']);
+    }
     useEffect(() => {
-        async function fetchData() {
-            const { data: pokemon_data } = await axios.get(
-                `https://pokedex-api.3rgo.tech/api/pokemon`
-            );
-            console.log(pokemon_data);
-            setPokemon(pokemon_data);
-        }
         fetchData();
     }, []);
     return (
-        <APIContext.Provider
-            value={{
-                pokemon
-            }}
-        >
+        <APIContext.Provider value={{ pokemons }}>
             {children}
         </APIContext.Provider>
     );
@@ -28,6 +24,7 @@ export function APIContextProvider({ children }) {
 
 export default function useAPI() {
     const context = useContext(APIContext);
+    console.log(context)
     if (context === undefined) {
         throw new Error("Context must be used within a Provider");
     }
