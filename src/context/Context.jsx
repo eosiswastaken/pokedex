@@ -26,7 +26,7 @@ export function APIContextProvider({ children }) {
     );
 }
 
-export function useAPI() {
+export default function useAPI() {
     const context = useContext(APIContext);
     if (context === undefined) {
         throw new Error("Context must be used within a Provider");
