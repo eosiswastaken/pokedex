@@ -5,7 +5,7 @@ const APIContext = createContext();
 
 export function APIContextProvider({ children }) {
     const [pokemons, setPokemons] = useState([]);
-    async function fetchData() {
+    async function fetchPokemons() {
         const { data: pokemon_data } = await axios.get(
             `https://pokedex-api.3rgo.tech/api/pokemon`
         );
@@ -13,10 +13,21 @@ export function APIContextProvider({ children }) {
         setPokemons(pokemon_data['data']);
     }
     useEffect(() => {
-        fetchData();
+        fetchPokemons();
+    }, []);
+    const [pokemonTypes, setPokemonTypes] = useState([]);
+    async function fetchTypes() {
+        const { data: types_data } = await axios.get(
+            `https://pokedex-api.3rgo.tech/api/types`
+        );
+        console.log(types_data);
+        setPokemonTypes(types_data['data']);
+    }
+    useEffect(() => {
+        fetchTypes();
     }, []);
     return (
-        <APIContext.Provider value={{ pokemons }}>
+        <APIContext.Provider value={{ pokemons, pokemonTypes }}>
             {children}
         </APIContext.Provider>
     );
