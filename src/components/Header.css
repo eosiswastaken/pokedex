@@ -3,6 +3,11 @@ display: flex;
 justify-content: center;
 align-items: center;
 background-color: aqua;
+flex-direction: column;
 
 
+}
+
+.filters {
+justify-content: center;
 }
