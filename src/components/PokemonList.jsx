@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useAPI from "../context/Context";
 import Card from "./card";
 
