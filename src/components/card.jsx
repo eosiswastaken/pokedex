@@ -1,7 +1,10 @@
 import React from "react";
 import Popup from "reactjs-popup";
+import useAPI from "../context/Context";
 
 export default function Card(data) {
+
+    const {pokemons} = useAPI()
     return (
         <div className="flex flex-wrap gap-2 justify-center text-white text-xs">
                 <div key={data.pokemon.id}>
@@ -24,8 +27,8 @@ export default function Card(data) {
                                 <div className="h-full w-full flex flex-col items-center justify-between bg-gray-800 back p-1">
                                     <div className="w-full flex justify-between">
                                         <div className="flex flex-wrap justify-between content-center gap-x-1">
-                                            <img className="h-[48px] rounded-full" src={data.pokemonTypes.find(type => type.id === u.types[0])?.image} alt="" />
-                                            <img className="h-[48px] rounded-full" src={data.pokemonTypes.find(type => type.id === u.types[1])?.image} alt="" />
+                                            <img className="h-[48px] rounded-full" src={data.pokemonTypes.find(type => type.id === data.pokemon.types[0])?.image} alt="" />
+                                            <img className="h-[48px] rounded-full" src={data.pokemonTypes.find(type => type.id === data.pokemon.types[1])?.image} alt="" />
                                             <div className="text-base">#{data.pokemon.id}</div>
                                         </div>
                                         <button className="close text-2xl " onClick={close}>
@@ -36,7 +39,7 @@ export default function Card(data) {
                                         <div className="flex flex-col justify-center">
                                             {Object.entries(data.pokemon?.evolvedFrom).map(([id, level]) => (
                                                 <div className="flex flex-col items-center">
-                                                    <img className="h-[38px]" src={pokemons.find(pokemon => pokemon.id == id)?.image} />
+                                                    <img className="h-[38px]" src={pokemons.find(pk => pk.id == id)?.image} />
                                                     <div className="text-center">
                                                         {level}
                                                     </div>
@@ -47,9 +50,9 @@ export default function Card(data) {
                                             <div className="text-center text-base">{data.pokemon.name.en}</div>
                                         </div>
                                         <div className="flex flex-col justify-center">
-                                            {Object.entries(u?.evolvesTo).map(([id, level]) => (
+                                            {Object.entries(data.pokemon?.evolvesTo).map(([id, level]) => (
                                                 <div className="flex flex-col items-center">
-                                                    <img className="h-[38px]" src={pokemons.find(pokemon => pokemon.id == id)?.image} />
+                                                    <img className="h-[38px]" src={pokemons.find(pk => pk.id == id)?.image} />
                                                     <div className="text-center">
                                                         {level}
                                                     </div>
