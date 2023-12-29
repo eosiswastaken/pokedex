@@ -1,14 +1,14 @@
 import './App.css';
-import Card from './components/card'
 import Header from './components/Header';
 import { APIContextProvider } from './context/Context';
+import PokemonList from './components/PokemonList';
 
 function App() {
   return (
     <APIContextProvider>
       <div className="App">
         <Header></Header>
-        <Card></Card>
+        <PokemonList></PokemonList>
       </div>
     </APIContextProvider>
   );
