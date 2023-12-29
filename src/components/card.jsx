@@ -33,11 +33,22 @@ export default function Card() {
                                 </div>
                                 <div className="w-full flex justify-center"><img className="h-[76px]" src={u.image} alt="" /></div>
                                 <div className="text-center">{u.name.en}</div>
+                                <div className="flex justify-between gap-10">
+                                    <div>Height : {u.height} m</div>
+                                    <div>Weight : {u.weight} kg</div>
+                                </div>
+                                <div className="flex gap-3">
+                                    <div>HP : {u.stats.hp}</div>
+                                    <div>ATK : {u.stats.atk}</div>
+                                    <div>DEF : {u.stats.def}</div>
+                                    <div>SPATK : {u.stats.spe_atk}</div>
+                                    <div>SPDEF : {u.stats.spe_def}</div>
+                                    <div>SPD : {u.stats.vit}</div>
+                                </div>
                                 <div className="w-full h-[16px] flex justify-start">Gen. {u.generation}</div>
                             </div>
                         </div>
                     </Popup>
-
                 </div>
             ))
             }
