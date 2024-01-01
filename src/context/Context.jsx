@@ -49,7 +49,6 @@ const [pokemonTypes, setPokemonTypes] = useState([]);
         getPokemonTypes(API)
       },[])
 
-      console.log(loading) 
 
     return (
         <APIContext.Provider value={{ pokemons, pokemonTypes, loading }}>
@@ -63,7 +62,6 @@ const [pokemonTypes, setPokemonTypes] = useState([]);
 
 export default function useAPI() {
     const context = useContext(APIContext);
-    console.log(context)
     if (context === undefined) {
         throw new Error("Context must be used within a Provider");
     }

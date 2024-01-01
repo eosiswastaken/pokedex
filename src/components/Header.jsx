@@ -3,7 +3,7 @@ import React from "react"
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-export default function Header(){
+export default function Header(props){
 
     let generations = ['All','Gen. 1','Gen. 2','Gen. 3','Gen. 4','Gen. 5','Gen. 6','Gen. 7','Gen. 8','Gen. 9','Gen. 10',]
     let types = ['All','Bug','Dark' ,'Dragon' ,'Electric' ,'Fairy' ,'Fighting' ,'Fire' ,'Flying' ,'Ghost' ,'Grass' ,'Ground' ,'Ice' ,'Normal' ,'Poison' ,'Psychic' ,'Rock' ,'Steel' ,'Water' ]
@@ -16,59 +16,74 @@ export default function Header(){
     const typeComponents = types.map(type => {
         return <option value={type}>{type}</option>
   })
-  const [sortingStates,setSortingStates] = React.useState({
-    number:"NONE",
-    name:"ASC",
-    weight:"NONE",
-    size:"DESC"
-  })
 
-  const [queryData,setQueryData] = React.useState({
+  const [sortingData,setSortingData] = React.useState({
     search:"",
     generation:"",
     type:"",
-    sortingKey:"",
-    sortingOrder:""
+    sortingKey:"number",
+    sortingOrder:"NONE"
   })
 
-
-  function switchState(state){
-    let currentState = sortingStates[state]
-    switch (currentState) {
-        case "NONE":
-            changeState(state,'ASC')
-            console.log(sortingStates)
-            break
-        case "ASC":
-            changeState(state,'DESC')
-            console.log(sortingStates)
-            break
-    
-        case "DESC":
-            changeState(state,'NONE')
-            console.log(sortingStates)
-            break
-        
-        default:
-            changeState(state,'NONE')
-            console.log(sortingStates)
-            break
-    
-    }
+  function switchState(key) {
+    setSortingData((prevState) => {
+      let currentKey = prevState.sortingKey;
+      if (currentKey === key) {
+        switch (prevState.sortingOrder) {
+          case "NONE":
+            console.log("from" + currentKey + " to " + "ASC");
+            return {
+              ...prevState,
+              sortingOrder: "ASC",
+            };
+          case "ASC":
+            console.log("from" + currentKey + " to " + "DESC");
+            return {
+              ...prevState,
+              sortingOrder: "DESC",
+            };
+          case "DESC":
+            console.log("from" + currentKey + " to " + "NONE");
+            return {
+              ...prevState,
+              sortingOrder: "NONE",
+            };
+          default:
+            console.log("from" + currentKey + " to " + "NONE");
+            return {
+              ...prevState,
+              sortingOrder: "NONE",
+            };
+        }
+      } else {
+        console.log("from" + currentKey + " to " + "ASC");
+        return {
+          ...prevState,
+          sortingKey: key,
+          sortingOrder: "ASC",
+        };
+      }
+    });
+    handleChange();
   }
 
-
-  function changeState(state,val){
-    setSortingStates(prevState => ({
+  function changeState(key,val){
+    setSortingData(prevState => ({
         ...prevState,
-        [state]: val
+        'sortingKey': key,
+        'sortingOrder': val
     }));
+    
   }
 
-  function getLabel(state){
-    if (state !== "NONE"){
+  function getLabel(state,key){
+    if (state !== "NONE" && key === sortingData['sortingKey']){
         return state === "ASC" ? "⌃" : "⌄";
   }
+}
+
+function handleChange(){
+    props.onSortingChange(sortingData)
 }
 
     return(
@@ -86,10 +101,10 @@ export default function Header(){
                     {typeComponents}
                 </select>
                 <div id="sorting flex">
-                    <span onClick={() => switchState('number')}>Number {getLabel(sortingStates['number'])}</span>
-                    <span onClick={() => switchState('name')}>Name {getLabel(sortingStates['name'])}</span>
-                    <span onClick={() => switchState('weight')}>Weight {getLabel(sortingStates['weight'])}</span>
-                    <span onClick={() => switchState('size')}>Size {getLabel(sortingStates['size'])}</span>
+                    <span onClick={() => switchState('number')}>Number {getLabel(sortingData['sortingOrder'],'number')}</span>
+                    <span onClick={() => switchState('name')}>Name {getLabel(sortingData['sortingOrder'],'name')}</span>
+                    <span onClick={() => switchState('weight')}>Weight {getLabel(sortingData['sortingOrder'],'weight')}</span>
+                    <span onClick={() => switchState('size')}>Size {getLabel(sortingData['sortingOrder'],'size')}</span>
                 </div>
                 <input type="text" name="" id="" />
             </div>
