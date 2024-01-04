@@ -21,8 +21,10 @@ export default function Header(props){
         generation:"0",
         type:"0",
         sortingKey:"number",
-        sortingOrder:"NONE"
+        sortingOrder:"NONE",
+        language:"en"
     })
+
 
     useEffect(() => {
         console.log("from useEffect")
@@ -94,12 +96,34 @@ export default function Header(props){
         props.onSortingChange(sortingData);
     }
 
+    function switchLanguage(){
+        if (sortingData.language === "fr"){
+            setSortingData(prevData => {
+                return {
+                    ...prevData,
+                    language:"en"
+                }
+            })
+        } else {
+            setSortingData(prevData => {
+                return {
+                    ...prevData,
+                    language:"fr"
+                }
+            })
+        }
+        console.log(sortingData.language)
+    }
+
     return (
         <div className="Header">
             <div className="title flex">
                 <span className="font-pokemon text-5xl text-yellow-500">POKE</span>
                 <img src="pokedex.svg" alt="" className="w-50"/>
                 <span className="font-pokemon text-5xl text-yellow-500">DEX</span>
+            </div>
+            <div>
+                <p onClick={switchLanguage}>{sortingData.language === "fr" ? "🇫🇷" : "🇺🇸"}</p>
             </div>
             <div className="filters flex">
                 <select onChange={handleChange} name="generation" id="generations">

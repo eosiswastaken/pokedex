@@ -26,7 +26,7 @@ export default function Card(data) {
                             </div>
                         </div>
                         <div className="w-full flex justify-center"><img className="h-[76px]" src={data.pokemon.image} alt="" /></div>
-                        <div className="text-center">{data.pokemon.name.en}</div>
+                        <div className="text-center">{data.pokemon.name[data.language]}</div>
                         <div className="w-full h-[16px] flex justify-start">Gen. {data.pokemon.generation}</div>
                     </div>
                 </div>} nested modal onClose={resetImage}>
@@ -58,7 +58,7 @@ export default function Card(data) {
                                             <img className={`absolute h-[152px] transition duration-500 ease-in-out ${showShinyImage ? 'opacity-0' : 'opacity-100'}`} src={data.pokemon.image} alt="" onClick={toggleShinyImage} />
                                             <img className={`h-[152px] transition duration-500 ease-in-out ${showShinyImage ? 'opacity-100' : 'opacity-0'}`} src={data.pokemon.image_shiny} alt="" onClick={toggleShinyImage} />
                                         </div>
-                                        <div className="text-center text-base">{data.pokemon.name.en}</div>
+                                        <div className="text-center text-base">{data.pokemon.name[data.language]}</div>
                                     </div>
                                     <div className="flex flex-col justify-center">
                                         {Object.entries(data.pokemon?.evolvesTo).map(([id, level]) => (

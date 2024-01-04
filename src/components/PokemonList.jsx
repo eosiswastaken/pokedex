@@ -5,7 +5,6 @@ import Card from "./card"
 export default function PokemonList({ sortingData }) {
   const { pokemons, pokemonTypes, loading } = useAPI();
   const [sortedPokemonComponents, setSortedPokemonComponents] = useState([])
-  const language = "en"
 
   useEffect(() => {
     console.log("pokemonlist got")
@@ -14,8 +13,8 @@ export default function PokemonList({ sortingData }) {
 
     const searchFilteredPokemons = pokemons.filter((pk) => {
         if (sortingData.search !== "") {
-            console.log(pk.name[language]) 
-            return pk.name[language].toLowerCase().startsWith(sortingData.search.toLowerCase())
+            console.log(pk.name[sortingData.language]) 
+            return pk.name[sortingData.anguage].toLowerCase().startsWith(sortingData.search.toLowerCase())
         }
         return true
     })
@@ -41,8 +40,8 @@ export default function PokemonList({ sortingData }) {
         let order = sortingData.sortingOrder
         
       if (key === "name") {
-        const nameA = a.name[language]
-        const nameB = b.name[language]
+        const nameA = a.name[sortingData.language]
+        const nameB = b.name[sortingData.language]
 
         return order !== "NONE" ? order === "DESC" ? nameB.localeCompare(nameA) : nameA.localeCompare(nameB) : 0
       }
@@ -55,7 +54,7 @@ export default function PokemonList({ sortingData }) {
 
     setSortedPokemonComponents(
         sortedComponents.map((pk) => (
-          <Card key={pk.id} pokemon={pk} pokemonTypes={pokemonTypes} />
+          <Card key={pk.id} pokemon={pk} pokemonTypes={pokemonTypes} language={sortingData.language}/>
         ))
       );
 

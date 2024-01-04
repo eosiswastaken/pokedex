@@ -5,13 +5,7 @@ import PokemonList from './components/PokemonList';
 import React from 'react';
 
 function App() {
-  const [sortingData, setSortingData] = React.useState({
-    search:"",
-    generation:"",
-    type:"",
-    sortingKey:"number",
-    sortingOrder:"NONE"
-  });
+  const [sortingData, setSortingData] = React.useState({});
 
   function handleSortingChange(data){
     setSortingData(data)
