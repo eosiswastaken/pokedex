@@ -18,8 +18,8 @@ export default function Header(props){
 
     const [sortingData, setSortingData] = React.useState({
         search:"",
-        generation:"",
-        type:"",
+        generation:"0",
+        type:"0",
         sortingKey:"number",
         sortingOrder:"NONE"
     })

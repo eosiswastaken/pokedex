@@ -21,11 +21,17 @@ export default function PokemonList({ sortingData }) {
     })
 
     const filteredPokemons = searchFilteredPokemons.filter((pk) => {
-        if (sortingData.type !== "0") {
-            console.log(pk.types)
-            console.log(pk.types.includes(parseInt(sortingData.type)))
-            return pk.types.includes(parseInt(sortingData.type))
-        }
+      if (sortingData.type !== "0") {
+          return pk.types.includes(parseInt(sortingData.type))
+      }
+      if (sortingData.generation !== "0") {
+          console.log(pk.generation)
+          console.log(parseInt(sortingData.generation))
+          console.log("agh")
+          console.log(pk.generation === parseInt(sortingData.generation))
+          console.log("agh")
+          return pk.generation === parseInt(sortingData.generation)
+      }
         return true;
       })
   
