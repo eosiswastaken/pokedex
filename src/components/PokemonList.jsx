@@ -14,25 +14,26 @@ export default function PokemonList({ sortingData }) {
     const searchFilteredPokemons = pokemons.filter((pk) => {
         if (sortingData.search !== "") {
             console.log(pk.name[sortingData.language]) 
-            return pk.name[sortingData.anguage].toLowerCase().startsWith(sortingData.search.toLowerCase())
+            return pk.name[sortingData.language].toLowerCase().startsWith(sortingData.search.toLowerCase())
         }
         return true
     })
 
-    const filteredPokemons = searchFilteredPokemons.filter((pk) => {
+    let filteredPokemons = searchFilteredPokemons.filter((pk) => {
       if (sortingData.type !== "0") {
+        console.log(pk.types.includes(parseInt(sortingData.type)) + " : tri par type ")
           return pk.types.includes(parseInt(sortingData.type))
-      }
-      if (sortingData.generation !== "0") {
-          console.log(pk.generation)
-          console.log(parseInt(sortingData.generation))
-          console.log("agh")
-          console.log(pk.generation === parseInt(sortingData.generation))
-          console.log("agh")
-          return pk.generation === parseInt(sortingData.generation)
       }
         return true;
       })
+
+      filteredPokemons = filteredPokemons.filter((pk) => {
+        if (sortingData.generation !== "0") {
+          console.log(pk.generation === parseInt(sortingData.generation) + " : tri par generation ")
+            return pk.generation === parseInt(sortingData.generation)
+        }
+          return true;
+        })
   
     
     const sortedComponents = [...filteredPokemons].sort((a, b) => {
