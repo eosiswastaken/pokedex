@@ -9,8 +9,6 @@ function App() {
 
   function handleSortingChange(data){
     setSortingData(data)
-    console.log("app js got")
-    console.log(sortingData)
   }
 
   return (

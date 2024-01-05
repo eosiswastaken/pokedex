@@ -7,13 +7,9 @@ export default function PokemonList({ sortingData }) {
   const [sortedPokemonComponents, setSortedPokemonComponents] = useState([])
 
   useEffect(() => {
-    console.log("pokemonlist got")
-    console.log(sortingData)
-    console.log(pokemons)
 
     const searchFilteredPokemons = pokemons.filter((pk) => {
         if (sortingData.search !== "") {
-            console.log(pk.name[sortingData.language]) 
             return pk.name[sortingData.language].toLowerCase().startsWith(sortingData.search.toLowerCase())
         }
         return true
@@ -21,7 +17,6 @@ export default function PokemonList({ sortingData }) {
 
     let filteredPokemons = searchFilteredPokemons.filter((pk) => {
       if (sortingData.type !== "0") {
-        console.log(pk.types.includes(parseInt(sortingData.type)) + " : tri par type ")
           return pk.types.includes(parseInt(sortingData.type))
       }
         return true;
@@ -29,7 +24,6 @@ export default function PokemonList({ sortingData }) {
 
       filteredPokemons = filteredPokemons.filter((pk) => {
         if (sortingData.generation !== "0") {
-          console.log(pk.generation === parseInt(sortingData.generation) + " : tri par generation ")
             return pk.generation === parseInt(sortingData.generation)
         }
           return true;

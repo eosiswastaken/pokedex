@@ -5,16 +5,17 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 export default function Header(props){
 
-    let generations = ['All','Gen. 1','Gen. 2','Gen. 3','Gen. 4','Gen. 5','Gen. 6','Gen. 7','Gen. 8','Gen. 9','Gen. 10',]
-    let types = ['All','Steel','Fighting', 'Dragon','Water' ,'Electric' ,'Fairy' ,'Fire' ,'Ice' ,'Insect' ,'Normal' ,'Grass' ,'Poison' ,'Psychic' ,'Rock' ,'Ground' ,'Specter' ,'Tenebres' ,'Flying']
+    let generations = ['All','Gen. 1','Gen. 2','Gen. 3','Gen. 4','Gen. 5','Gen. 6','Gen. 7','Gen. 8','Gen. 9']
+    let types_en = ['All','Steel','Fighting', 'Dragon','Water' ,'Electric' ,'Fairy' ,'Fire' ,'Ice' ,'Insect' ,'Normal' ,'Grass' ,'Poison' ,'Psychic' ,'Rock' ,'Ground' ,'Specter' ,'Tenebres' ,'Flying']
+    let types_fr = ['All','Acier','Combat', 'Dragon','Eau' ,'Electrique' ,'Fée' ,'Feu' ,'Glace' ,'Insecte' ,'Normal' ,'Herbe' ,'Poison' ,'Psy' ,'Pierre' ,'Sol' ,'Specrer' ,'Tenebres' ,'Vol']
 
     const generationComponents = generations.map((generation,index) => {
         return <option value={index}>{generation}</option>
     })
 
-    const typeComponents = types.map((type,index) => {
-        return <option value={index}>{type}</option>
-    })
+    let typeComponents = []
+
+
 
     const [sortingData, setSortingData] = React.useState({
         search:"",
@@ -25,10 +26,17 @@ export default function Header(props){
         language:"en"
     })
 
+    if (sortingData.language === "en") {
+        typeComponents = types_en.map((type,index) => {
+            return <option value={index}>{type}</option>
+        })
+    } else {
+        typeComponents = types_fr.map((type,index) => {
+            return <option value={index}>{type}</option>
+        })
+    }
 
     useEffect(() => {
-        console.log("from useEffect")
-        console.log(sortingData)
         sendChange();
     }, [sortingData]);
 
@@ -37,32 +45,27 @@ export default function Header(props){
             if (prevState.sortingKey === key) {
                 switch (prevState.sortingOrder) {
                     case "NONE":
-                        console.log("from " + prevState.sortingOrder + " to " + "ASC");
                         return {
                             ...prevState,
                             sortingOrder: "ASC",
                         };
                     case "ASC":
-                        console.log("from " + prevState.sortingOrder + " to " + "DESC");
                         return {
                             ...prevState,
                             sortingOrder: "DESC",
                         };
                     case "DESC":
-                        console.log("from " + prevState.sortingOrder + " to " + "NONE");
                         return {
                             ...prevState,
                             sortingOrder: "NONE",
                         };
                     default:
-                        console.log("from " + prevState.sortingOrder + " to " + "NONE");
                         return {
                             ...prevState,
                             sortingOrder: "NONE",
                         };
                 }
             } else {
-                console.log("from " + prevState.sortingOrder + " to " + "ASC");
                 return {
                     ...prevState,
                     sortingKey: key,
@@ -90,9 +93,6 @@ export default function Header(props){
     }
 
     function sendChange() {
-        console.log("sending");
-        console.log(sortingData);
-        console.log()
         props.onSortingChange(sortingData);
     }
 
@@ -112,7 +112,6 @@ export default function Header(props){
                 }
             })
         }
-        console.log(sortingData.language)
     }
 
     return (
@@ -133,10 +132,10 @@ export default function Header(props){
                     {typeComponents}
                 </select>
                 <div id="sorting flex">
-                    <span onClick={() => switchState('id')}>Number {getLabel(sortingData['sortingOrder'],'id')}</span>
-                    <span onClick={() => switchState('name')}>Name {getLabel(sortingData['sortingOrder'],'name')}</span>
-                    <span onClick={() => switchState('weight')}>Weight {getLabel(sortingData['sortingOrder'],'weight')}</span>
-                    <span onClick={() => switchState('height')}>Size {getLabel(sortingData['sortingOrder'],'height')}</span>
+                    <span onClick={() => switchState('id')}> {sortingData.language === "en" ? "Number" : "Nombre"} {getLabel(sortingData['sortingOrder'],'id')}</span>
+                    <span onClick={() => switchState('name')}> {sortingData.language === "en" ? "Name" : "Nom"} {getLabel(sortingData['sortingOrder'],'name')}</span>
+                    <span onClick={() => switchState('weight')}> {sortingData.language === "en" ? "Weight" : "Poids"} {getLabel(sortingData['sortingOrder'],'weight')}</span>
+                    <span onClick={() => switchState('height')}> {sortingData.language === "en" ? "Size" : "Taille"} {getLabel(sortingData['sortingOrder'],'height')}</span>
                 </div>
                 <input onChange={handleChange} type="text" name="search" id="" />
             </div>
